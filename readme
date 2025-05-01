@@ -1,0 +1,137 @@
+# Crawl4AI MCP Server
+
+A Model Context Protocol (MCP) server implementation for Claude Desktop that provides powerful web crawling and content extraction capabilities using the crawl4ai library.
+
+![Crawl4AI MCP](https://img.shields.io/badge/Crawl4AI-MCP-blue)
+![License](https://img.shields.io/badge/License-MIT-green)
+
+## Overview
+
+This MCP server allows Claude Desktop to perform web crawling operations with intelligent content extraction. It enables Claude to access websites, extract structured content, and provide meaningful analysis of web pages without requiring complex API integrations.
+
+## Features
+
+- **Web Page Crawling**: Extract specific information from web pages based on natural language instructions
+- **Markdown Generation**: Convert web content to clean, structured markdown format
+- **Link Extraction**: Get all links from a webpage
+- **Table Extraction**: Extract tables from webpages as structured JSON
+- **Parallel Crawling**: Crawl multiple webpages concurrently
+- **Streaming Results**: Get results as they complete for multi-page crawls
+- **Citation Support**: Automatically generates citations for extracted content
+
+## Installation
+
+### Prerequisites
+
+- Python 3.10 or higher
+- Claude Desktop application
+- `crawl4ai` library (v0.6.0+)
+- `mcp` SDK (v1.2.0+)
+
+### Setup
+
+1. Clone this repository:
+```bash
+git clone https://github.com/OnsioAS/crawl4ai-mcp.git
+cd crawl4ai-mcp
+```
+
+2. Run the setup script:
+```bash
+chmod +x setup.sh
+./setup.sh
+```
+
+The setup script will:
+- Create a Python virtual environment
+- Install required dependencies
+- Make the server executable
+- Update the Claude Desktop configuration file
+
+### Manual Configuration
+
+If you need to manually configure the server:
+
+1. Create and activate a virtual environment:
+```bash
+python3 -m venv venv
+source venv/bin/activate  # On Windows: venv\Scripts\activate
+```
+
+2. Install dependencies:
+```bash
+pip install -r requirements.txt
+```
+
+3. Make the script executable:
+```bash
+chmod +x crawl4ai_mcp.py
+```
+
+4. Add to Claude Desktop configuration (located at `~/Library/Application Support/Claude/claude_desktop_config.json` on macOS):
+```json
+{
+  "mcpServers": {
+    "crawl4ai": {
+      "command": "python3",
+      "args": [
+        "/full/path/to/crawl4ai_mcp.py"
+      ]
+    }
+  }
+}
+```
+
+## Usage
+
+1. Start Claude Desktop
+2. Example queries you can ask Claude:
+   - "Crawl the website example.com and summarize the main points"
+   - "Extract the table from the pricing page at example.com/pricing"
+   - "Get all links from the blog at example.com/blog"
+   - "Crawl these three websites and compare their content: site1.com, site2.com, site3.com"
+
+## Available Tools
+
+| Tool | Description |
+|------|-------------|
+| `crawl_page` | Extract information from a webpage based on instructions |
+| `get_page_links` | Extract all links from a webpage |
+| `extract_table_as_json` | Extract a table from a webpage as JSON |
+| `crawl_many` | Crawl multiple webpages concurrently |
+| `crawl_many_streaming` | Crawl multiple webpages with streaming results |
+
+## Troubleshooting
+
+### Common Issues
+
+- **Python Path Issues**: If you see errors about Python not being found, edit your Claude Desktop configuration to use the correct Python path
+- **Authentication Errors**: Some websites may block crawling attempts. Try using different user agents or consider respecting robots.txt
+- **Memory Issues**: For large crawling jobs, adjust the max_concurrency parameter to avoid overloading your system
+
+### Testing the Server
+
+A test script is included to check if the server can start correctly:
+
+```bash
+chmod +x test_server.py
+./test_server.py
+```
+
+## License
+
+This project is released under the MIT License. See the [LICENSE](LICENSE) file for details.
+
+## Acknowledgments
+
+- [crawl4ai](https://github.com/unclecode/crawl4ai) - The core web crawling library
+- [Model Context Protocol (MCP)](https://modelcontextprotocol.io/) - The protocol specification
+- Anthropic - For Claude Desktop and the MCP implementation
+
+## Contributing
+
+Contributions are welcome! Please feel free to submit a Pull Request.
+
+---
+
+Made with ❤️ by [OnsioAS](https://github.com/OnsioAS)
